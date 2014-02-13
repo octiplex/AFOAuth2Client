@@ -241,7 +241,7 @@
 /**
  Stores the specified OAuth credential for a given web service identifier in the Keychain.
  with the default Keychain Accessibilty of kSecAttrAccessibleWhenUnlocked.
-
+ 
  @param credential The OAuth credential to be stored.
  @param identifier The service identifier associated with the specified credential.
  
@@ -251,17 +251,47 @@
          withIdentifier:(NSString *)identifier;
 
 /**
- Stores the specified OAuth token for a given web service identifier in the Keychain.
+ Stores the specified OAuth credential for a given web service identifier in the Keychain.
+ with the default Keychain Accessibilty of kSecAttrAccessibleWhenUnlocked.
+ 
+ @param credential The OAuth credential to be stored.
+ @param identifier The service identifier associated with the specified credential.
+ @param serviceName The name of the service associated to the credential (only usefull on OS X).
+ 
+ @return Whether or not the credential was stored in the keychain.
+ */
++ (BOOL)storeCredential:(AFOAuthCredential *)credential
+         withIdentifier:(NSString *)identifier
+        withServiceName:(NSString*)serviceName;
 
+/**
+ Stores the specified OAuth token for a given web service identifier in the Keychain.
+ 
  @param token The OAuth credential to be stored.
  @param identifier The service identifier associated with the specified token.
  @param securityAccessibility The Keychain security accessibility to store the credential with.
-
+ 
  @return Whether or not the credential was stored in the keychain.
  */
 + (BOOL)storeCredential:(AFOAuthCredential *)credential
          withIdentifier:(NSString *)identifier
       withAccessibility:(id)securityAccessibility;
+
+
+/**
+ Stores the specified OAuth token for a given web service identifier in the Keychain.
+ 
+ @param token The OAuth credential to be stored.
+ @param identifier The service identifier associated with the specified token.
+ @param securityAccessibility The Keychain security accessibility to store the credential with.
+ @param serviceName The name of the service associated to the credential (only usefull on OS X).
+ 
+ @return Whether or not the credential was stored in the keychain.
+ */
++ (BOOL)storeCredential:(AFOAuthCredential *)credential
+         withIdentifier:(NSString *)identifier
+      withAccessibility:(id)securityAccessibility
+        withServiceName:(NSString*)serviceName;
 
 /**
  Retrieves the OAuth credential stored with the specified service identifier from the Keychain.
@@ -273,13 +303,33 @@
 + (AFOAuthCredential *)retrieveCredentialWithIdentifier:(NSString *)identifier;
 
 /**
- Deletes the OAuth credential stored with the specified service identifier from the Keychain.
-
+ Retrieves the OAuth credential stored with the specified service identifier from the Keychain.
+ 
  @param identifier The service identifier associated with the specified credential.
+ @param serviceName The name of the service associated to the credential (only usefull on OS X).
+ 
+ @return The retrieved OAuth credential.
+ */
++ (AFOAuthCredential *)retrieveCredentialWithIdentifier:(NSString *)identifier serviceName:(NSString*)serviceName;
 
+/**
+ Deletes the OAuth credential stored with the specified service identifier from the Keychain.
+ 
+ @param identifier The service identifier associated with the specified credential.
+ @param serviceName The name of the service associated to the credential (only usefull on OS X).
+ 
  @return Whether or not the credential was deleted from the keychain.
  */
 + (BOOL)deleteCredentialWithIdentifier:(NSString *)identifier;
+
+/**
+ Deletes the OAuth credential stored with the specified service identifier from the Keychain.
+ 
+ @param identifier The service identifier associated with the specified credential.
+ 
+ @return Whether or not the credential was deleted from the keychain.
+ */
++ (BOOL)deleteCredentialWithIdentifier:(NSString *)identifier serviceName:(NSString*)serviceName;
 #endif
 
 @end
