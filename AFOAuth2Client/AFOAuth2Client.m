@@ -281,7 +281,8 @@ static NSMutableDictionary * AFKeychainQueryDictionaryWithIdentifierAndServiceNa
 {
     id securityAccessibility = nil;
 #if (defined(__IPHONE_OS_VERSION_MAX_ALLOWED) && __IPHONE_OS_VERSION_MAX_ALLOWED >= 43000) || (defined(__MAC_OS_X_VERSION_MAX_ALLOWED) && __MAC_OS_X_VERSION_MAX_ALLOWED >= 1090)
-    securityAccessibility = (__bridge id)kSecAttrAccessibleWhenUnlocked;
+    if ( &kSecAttrAccessibleWhenUnlocked != NULL )
+        securityAccessibility = kSecAttrAccessibleWhenUnlocked;
 #endif
     
     return [[self class] storeCredential:credential withIdentifier:identifier withAccessibility:securityAccessibility withServiceName:serviceName];
